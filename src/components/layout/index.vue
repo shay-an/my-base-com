@@ -5,7 +5,7 @@
     </el-aside>
     <el-container>
       <el-header>
-        <app-nav-bar/>
+        <app-header/>
       </el-header>
       <el-main>
         <router-view/>
@@ -19,11 +19,13 @@ import Vue from 'vue'
 import Component from 'vue-class-component'
 import AppsideBar from './components/sideBar.vue'
 import NavBar from './components/navBar.vue'
+import AppHeader from './components/app-header.vue'
 
 @Component({
   components: {
     'appside-bar': AppsideBar,
-    'app-nav-bar': NavBar
+    'app-nav-bar': NavBar,
+    'app-header': AppHeader
   }
 })
 export default class LayoutIndex extends Vue {
@@ -32,10 +34,7 @@ export default class LayoutIndex extends Vue {
 
 <style lang="scss" scoped>
 .el-header {
-  background-color: #4878b8;
-  color: #333;
-  text-align: center;
-  line-height: 60px;
+  background-color: #fff;
 }
 
 .el-aside {

@@ -1,8 +1,12 @@
 <template>
   <el-container>
-    <el-aside width="200px">Aside</el-aside>
+    <el-aside width="200px">
+    <appside-bar/>
+    </el-aside>
     <el-container>
-      <el-header>Header</el-header>
+      <el-header>
+        <app-nav-bar/>
+      </el-header>
       <el-main>
         <router-view/>
       </el-main>
@@ -23,7 +27,6 @@ import NavBar from './components/navBar.vue'
   }
 })
 export default class LayoutIndex extends Vue {
-
 }
 </script>
 
@@ -52,6 +55,7 @@ export default class LayoutIndex extends Vue {
 .el-container {
   margin-bottom: 40px;
   background-color: rgb(153, 51, 51);
+  height: 100vh;
 }
 
 </style>

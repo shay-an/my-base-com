@@ -7,7 +7,7 @@ import Component from 'vue-class-component'
 
 @Component
 export default class Advert extends Vue {
-
+  // public getID = 12
 }
 </script>
 <style lang="scss"></style>

@@ -13,8 +13,8 @@
 <script lang="ts">
 import Vue from 'vue'
 import Component from 'vue-class-component'
-import AppsideBar from '@/components/sideBar.vue'
-import NavBar from '@/components/navBar.vue'
+import AppsideBar from './components/sideBar.vue'
+import NavBar from './components/navBar.vue'
 
 @Component({
   components: {

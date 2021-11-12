@@ -6,9 +6,9 @@ Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
-    path: '/',
-    name: 'home',
-    component: () => import(/* webpackChunkName: 'home' */'@/components/home/index.vue')
+    path: '/login',
+    name: 'login',
+    component: () => import(/* webpackChunkName: 'login' */'@/components/login/index.vue')
   },
   {
     path: '*',
@@ -20,9 +20,9 @@ const routes: Array<RouteConfig> = [
     component: Layout,
     children: [
       {
-        path: '/login',
-        name: 'login',
-        component: () => import(/* webpackChunkName: 'login' */'@/components/login/index.vue')
+        path: '/',
+        name: 'home',
+        component: () => import(/* webpackChunkName: 'home' */'@/components/home/index.vue')
       },
       {
         path: '/role',

@@ -11,11 +11,11 @@
       <el-avatar shape="square" :size="30" :src="url"></el-avatar>
     </span>
     <el-dropdown-menu slot="dropdown">
-      <el-dropdown-item>黄金糕</el-dropdown-item>
-      <el-dropdown-item>狮子头</el-dropdown-item>
-      <el-dropdown-item>螺蛳粉</el-dropdown-item>
-      <el-dropdown-item disabled>双皮奶</el-dropdown-item>
-      <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
+      <el-dropdown-item>{{ username }}</el-dropdown-item>
+      <el-dropdown-item
+       divided
+       @click.native="logoutClickHandle"
+       >退出登录</el-dropdown-item>
     </el-dropdown-menu>
   </el-dropdown>
   </div>
@@ -23,12 +23,43 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Component from 'vue-class-component'
+import { getUserInfo } from '@/services/user'
 
-@Component
-export default class AppHeader extends Vue {
-  public url = 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-}
+export default Vue.extend({
+  name: 'appHeader',
+  data () {
+    return {
+      url: '',
+      username: ''
+    }
+  },
+  created () {
+    this.getUserInfo()
+  },
+  methods: {
+    async getUserInfo () {
+      const { data } = await getUserInfo()
+      console.log(data)
+      this.url = data.content.portrait
+      this.username = data.content.userName
+    },
+    logoutClickHandle () {
+      this.$confirm('确认退出？', '提示', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$store.commit('setUser', null)
+        this.$router.push({
+          name: 'login'
+        })
+        this.$message('退出成功')
+      }).catch(() => {
+        this.$message('您取消了退出')
+      })
+    }
+  }
+})
 </script>
 
 <style lang="scss" scoped>

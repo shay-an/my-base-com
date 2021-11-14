@@ -11,26 +11,28 @@
           <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="菜单路径">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.herf"></el-input>
       </el-form-item>
       <el-form-item label="上级菜单">
-          <el-select v-model="form.region" placeholder="请选择活动区域">
+          <el-select v-model="form.parentId" placeholder="请选择活动区域">
           <el-option label="区域一" value="shanghai"></el-option>
           <el-option label="区域二" value="beijing"></el-option>
           </el-select>
       </el-form-item>
       <el-form-item label="描述">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.description"></el-input>
       </el-form-item>
       <el-form-item label="前端图标">
-          <el-input v-model="form.name"></el-input>
+          <el-input v-model="form.icon"></el-input>
       </el-form-item>
       <el-form-item label="是否显示">
-        <el-radio v-model="form.radio" label="1">是</el-radio>
-        <el-radio v-model="form.radio" label="2">否</el-radio>
+        <el-radio-group v-model="form.shown">
+          <el-radio :label="true">是</el-radio>
+          <el-radio :label="false">否</el-radio>
+        </el-radio-group>
       </el-form-item>
       <el-form-item label="排序">
-        <el-input-number v-model="num" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
+        <el-input-number v-model="form.orderNum" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
       </el-form-item>
       <el-form-item>
           <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -42,28 +44,27 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
+import { saveOrUpdate } from '@/services/menu'
 
 export default Vue.extend({
   name: 'menuList',
   data () {
     return {
       form: {
+        id: 0,
+        parentId: -1,
         name: '',
-        radio: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
-      },
-      num: 0
+        herf: '',
+        icon: '',
+        orderNum: 0,
+        description: '',
+        shown: true
+      }
     }
   },
   methods: {
-    onSubmit () {
-      console.log('submit!')
+    async onSubmit () {
+      await saveOrUpdate(this.form)
     },
     handleChange () {
       console.log('1111111')

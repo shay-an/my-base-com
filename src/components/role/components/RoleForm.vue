@@ -20,16 +20,23 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { saveOrUpdate } from '@/services/role'
 
 export default Vue.extend({
   name: 'RoleForm',
   data () {
     return {
       formLabelAlign: {
+        id: null,
         name: '',
         code: '',
         description: ''
       }
+    }
+  },
+  methods: {
+    async saveOrUpdate () {
+      await saveOrUpdate(this.formLabelAlign)
     }
   }
 })

@@ -92,7 +92,6 @@ export default Vue.extend({
       }
     },
     changePage (val:number) {
-      console.log(val)
       this.pages.current = val
       this.getAllMenu()
     },
@@ -105,8 +104,4 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-.el-card__header {
-  height: 60px;
-  line-height: 20px;
-}
 </style>

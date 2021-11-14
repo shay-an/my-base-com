@@ -2,9 +2,7 @@
   <div>
     <el-card class="box-card">
       <div slot="header">
-        <span>
-          添加菜单
-        </span>
+        添加菜单
       </div>
       <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="菜单名称">
@@ -15,8 +13,13 @@
       </el-form-item>
       <el-form-item label="上级菜单">
           <el-select v-model="form.parentId" placeholder="请选择活动区域">
-          <el-option label="区域一" value="shanghai"></el-option>
-          <el-option label="区域二" value="beijing"></el-option>
+          <el-option label="无上级菜单" :value="-1"></el-option>
+          <el-option
+           v-for="item in parentIdList"
+           :label="item.name"
+           :value="item.id"
+           :key="item.id"
+           ></el-option>
           </el-select>
       </el-form-item>
       <el-form-item label="描述">
@@ -36,7 +39,6 @@
       </el-form-item>
       <el-form-item>
           <el-button type="primary" @click="onSubmit">立即创建</el-button>
-          <el-button>取消</el-button>
       </el-form-item>
       </el-form>
     </el-card>
@@ -44,27 +46,39 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import { saveOrUpdate } from '@/services/menu'
+import { saveOrUpdate, getEditMenuInfo } from '@/services/menu'
 
 export default Vue.extend({
   name: 'menuList',
   data () {
     return {
       form: {
-        id: 0,
+        description: '123',
+        href: '123',
+        icon: '123',
+        name: '123',
+        orderNum: 1,
         parentId: -1,
-        name: '',
-        herf: '',
-        icon: '',
-        orderNum: 0,
-        description: '',
-        shown: true
-      }
+        shown: false
+      },
+      parentIdList: []
     }
+  },
+  created () {
+    this.getEditMenuInfo()
   },
   methods: {
     async onSubmit () {
-      await saveOrUpdate(this.form)
+      const { data } = await saveOrUpdate(this.form)
+      if (data.code === '000000') {
+        this.$router.back()
+      }
+    },
+    async getEditMenuInfo () {
+      const { data } = await getEditMenuInfo()
+      if (data.code === '000000') {
+        this.parentIdList = data.data.parentMenuList
+      }
     },
     handleChange () {
       console.log('1111111')
@@ -72,4 +86,9 @@ export default Vue.extend({
   }
 })
 </script>
-<style lang="scss"></style>
+<style lang="scss">
+.el-card__header {
+  height: 60px;
+  line-height: 20px;
+}
+</style>

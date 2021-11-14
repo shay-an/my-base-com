@@ -1,6 +1,5 @@
 import requst from '@/utils/request'
 import { AxiosPromise } from 'axios'
-import qs from 'qs'
 
 export interface Menu {
   id?: number
@@ -17,13 +16,13 @@ export const saveOrUpdate = (data: Menu):AxiosPromise => {
   return requst({
     method: 'POST',
     url: '/boss/menu/saveOrUpdate',
-    data: qs.stringify(data)
+    data: data
   })
 }
 
 export const getAll = ():AxiosPromise => {
   return requst({
-    method: 'POST',
+    method: 'GET',
     url: '/boss/menu/getAll'
   })
 }

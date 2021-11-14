@@ -51,7 +51,6 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import { Form } from 'element-ui'
 import { saveOrUpdate, getEditMenuInfo } from '@/services/menu'
 
 export default Vue.extend({
@@ -88,9 +87,7 @@ export default Vue.extend({
       }
     },
     resetSubmit () {
-        console.log('resetSubmit')
-        const el = this.$refs.form as Form
-        el.resetFields()
+        this.getEditMenuInfo()
     },
     async getEditMenuInfo () {
       const { data } = await getEditMenuInfo(this.$route.params.id || -1)

@@ -27,12 +27,19 @@ export const getAll = ():AxiosPromise => {
   })
 }
 
-export const getEditMenuInfo = (id = -1):AxiosPromise => {
+export const getEditMenuInfo = (id: number | string = -1):AxiosPromise => {
   return requst({
     method: 'GET',
     url: '/boss/menu/getEditMenuInfo',
     params: {
       id: id
     }
+  })
+}
+
+export const delelteMenu = (id: number):AxiosPromise => {
+  return requst({
+    method: 'delete',
+    url: `/boss/menu/${id}`
   })
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <create-or-update :isEdit="false"/>
+    <create-or-update :isEdit="true"/>
   </div>
 </template>
 <script lang="ts">

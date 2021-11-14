@@ -59,6 +59,14 @@ const routes: Array<RouteConfig> = [
         }
       },
       {
+        path: '/menu/:id/edit',
+        name: 'menu-edit',
+        component: () => import(/* webpackChunkName: 'menu-edit' */'@/components/menu/edit.vue'),
+        meta: {
+          requiresAuth: true
+        }
+      },
+      {
         path: '/resource',
         name: 'resource',
         component: () => import(/* webpackChunkName: 'resource' */'@/components/resource/index.vue'),

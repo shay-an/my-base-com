@@ -63,7 +63,7 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-import { getAll } from '@/services/menu'
+import { getAll, Menu, delelteMenu } from '@/services/menu'
 
 export default Vue.extend({
   name: 'menuList',
@@ -82,11 +82,36 @@ export default Vue.extend({
         this.tableData = data.data
       }
     },
-    handleEdit (a:any, b:any) {
-      console.log(a, b)
+    handleEdit (index: number, item:Menu) {
+      // console.log(item.id)
+      let id = -1
+      if (item.id !== undefined) {
+        id = item.id
+      }
+      console.log(id)
+      this.$router.push({
+        name: 'menu-edit',
+        params: {
+          id: id.toString()
+        }
+      })
     },
-    handleDelete (a:any, b:any) {
-      console.log(a, b)
+    handleDelete (index: number, item:Menu) {
+      this.$confirm('确认删除吗？', '提示', {})
+        .then(async () => {
+          if (item.id !== undefined) {
+            const { data } = await delelteMenu(item.id)
+            if (data.code === '000000') {
+              this.$message.success('删除成功')
+            }
+          }
+        })
+        .then(() => {
+          return this.getAllMenu()
+        })
+        .catch(() => {
+          this.$message.warning('已经取消删除')
+        })
     }
   }
 })

@@ -61,7 +61,8 @@ request.interceptors.response.use(function (res) {
         return refrashToken()
         .then(res => {
           if (!res.data.success) {
-            throw new Error('')
+            Message.error('登录超时，请重新登录')
+            return
           }
           store.commit('setUser', res.data.content)
 

@@ -6,6 +6,10 @@ module.exports = {
       }
     }
   },
+  transpileDependencies: [
+    'vue-echarts',
+    'resize-detector'
+  ],
   devServer: {
     proxy: {
       '/boss': {

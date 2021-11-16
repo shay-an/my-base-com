@@ -35,13 +35,10 @@ export default Vue.extend({
   },
   created () {
     this.getUserInfo()
-    this.getUserInfo()
-    this.getUserInfo()
   },
   methods: {
     async getUserInfo () {
       const { data } = await getUserInfo()
-      console.log(data)
       this.url = data.content.portrait
       this.username = data.content.userName
     },
@@ -55,9 +52,9 @@ export default Vue.extend({
         this.$router.push({
           name: 'login'
         })
-        this.$message('退出成功')
+        this.$message.success('退出成功')
       }).catch(() => {
-        this.$message('您取消了退出')
+        this.$message.warning('您取消了退出')
       })
     }
   }

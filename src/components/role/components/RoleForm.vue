@@ -11,8 +11,8 @@
           <el-input v-model="formLabelAlign.description"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button @click="$emit('success')">取 消</el-button>
+        <el-button type="primary" @click="saveOrUpdate">确 定</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -20,23 +20,39 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { saveOrUpdate } from '@/services/role'
+import { saveOrUpdate, getRow } from '@/services/role'
 
 export default Vue.extend({
   name: 'RoleForm',
+  props: {
+    id: {
+      type: [String, Number],
+      default: null
+    }
+  },
   data () {
     return {
       formLabelAlign: {
-        id: null,
         name: '',
         code: '',
         description: ''
       }
     }
   },
+  created () {
+    if (this.id) {
+      this.getRow()
+    }
+  },
   methods: {
     async saveOrUpdate () {
       await saveOrUpdate(this.formLabelAlign)
+      this.$emit('success')
+    },
+    async getRow () {
+      // this.formLabelAlign = this.$options.data().formLabelAlign
+      const { data } = await getRow(this.id)
+      this.formLabelAlign = data.data
     }
   }
 })
